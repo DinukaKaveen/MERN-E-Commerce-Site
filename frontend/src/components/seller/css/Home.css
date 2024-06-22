@@ -1,0 +1,32 @@
+.custom-col {
+    flex: 1;
+    max-width: 20%; /* 100% / 5 columns = 20% each */
+    padding: 0px;
+    text-align: center;
+  }
+
+  .custom-row {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .custom-card {
+    border: none; 
+    text-align: center;
+  }
+  
+  .custom-overlay {
+    background: rgba(255, 255, 255, 0.5); /* Customize the overlay color */
+    width: 100%; /* Ensure the overlay covers the entire width */
+    height: 100%; /* Ensure the overlay covers the entire height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .custom-card-group {
+    margin: 50px;
+    border: none;
+  }
+  
+  

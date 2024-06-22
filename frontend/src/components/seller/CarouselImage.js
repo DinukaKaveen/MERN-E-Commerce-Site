@@ -1,6 +1,6 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
+import './css/CarouselImage.css';
 
 const ExampleCarouselImage = ({ imageUrl, altText }) => {
   return (
