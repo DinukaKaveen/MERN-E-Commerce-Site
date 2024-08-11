@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import NavbarBuyer from '../buyer/Navbar';
 
 function About() {
   return (
-    <div>About</div>
+    <div>
+      < NavbarBuyer/>
+      About
+    </div>
   )
 }
 

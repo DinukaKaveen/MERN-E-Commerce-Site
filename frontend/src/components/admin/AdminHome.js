@@ -1,15 +1,16 @@
+import "./css/AdminHome.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import { Link, useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import NavBarAdmin from "./NavBar";
 
 axios.defaults.withCredentials = true;
 
 function AdminHome() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     protectedRoute();
@@ -21,7 +22,6 @@ function AdminHome() {
       .then((response) => {
         if (response.data.protected) {
           loadProducts();
-          setUser(response.data.user);
         } else {
           navigate("/");
         }
@@ -70,7 +70,7 @@ function AdminHome() {
       sortable: false,
       selector: (row) => (
         <div>
-          <label className="inline-flex items-center mb-5 cursor-pointer">
+          <label>
             <input
               type="checkbox"
               value=""
@@ -78,7 +78,6 @@ function AdminHome() {
               onChange={() => checkboxChange(row._id, row.activeStatus)}
               defaultChecked={row.activeStatus === "Active"}
             />
-            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
         </div>
       ),
@@ -118,21 +117,23 @@ function AdminHome() {
       width: "180px",
       selector: (row) => (
         <div>
-          <Link
-            to={`/update_product/${row._id}`}
-            type="button"
-            className="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-lg px-2.5 py-1.5 text-sm text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400"
+         <Button
+            className="update-btn"
+            href={`/admin/update_product/${row._id}`}
+            variant="warning"
+            size="sm"
           >
             Update
-          </Link>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            className="delete-btn"
             onClick={() => deleteProduct(row._id)}
-            className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg px-2.5 py-1.5 text-sm text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600"
+            variant="danger"
+            size="sm"
           >
             Delete
-          </button>
+          </Button>
         </div>
       ),
     },
@@ -156,77 +157,31 @@ function AdminHome() {
 
   return (
     <div>
-      <NavBar />
-      <div className="p-4 sm:ml-64">
-        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-          <nav className="flex mb-4" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <a
-                  href="/products"
-                  className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray"
-                >
-                  <svg
-                    className="w-4 h-4 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-                  </svg>
-                  Home
-                </a>
-              </li>
-            </ol>
-          </nav>
-          <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-gray-700">
-            Products
-          </h2>
-          <p className="text-xl text-gray-900 font-extralight dark:text-white">
-            Manage and Add New Product
-          </p>
+      <NavBarAdmin />
+      <div className="products-table">
+        <h2>Products</h2>
+        <h6>Manage Products</h6>
 
-          <DataTable
-            columns={columns}
-            data={filteredData}
-            fixedHeader
-            responsive
-            highlightOnHover
-            pagination
-            subHeader
-            subHeaderComponent={
-              <div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <input
-                    value={searchText}
-                    onChange={handleSearch}
-                    type="search"
-                    id="search"
-                    className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-500 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Search"
-                  />
-                </div>
-              </div>
-            }
-          ></DataTable>
-        </div>
+        <DataTable
+          columns={columns}
+          data={filteredData}
+          fixedHeader
+          responsive
+          highlightOnHover
+          pagination
+          subHeader
+          subHeaderComponent={
+            <div>
+              <input
+                value={searchText}
+                onChange={handleSearch}
+                type="search"
+                id="search"
+                placeholder="Search"
+              />
+            </div>
+          }
+        ></DataTable>
       </div>
     </div>
   );

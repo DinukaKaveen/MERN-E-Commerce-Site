@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function NavbarSeller() {
+function NavbarBuyer() {
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
@@ -40,4 +40,4 @@ function NavbarSeller() {
   );
 }
 
-export default NavbarSeller
+export default NavbarBuyer

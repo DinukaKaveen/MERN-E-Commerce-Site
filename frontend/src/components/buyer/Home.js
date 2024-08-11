@@ -13,9 +13,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 
+import NavbarBuyer from '../buyer/Navbar';
+
 function Home() {
   return (
     <div>
+      < NavbarBuyer/>
       <Carousel fade>
         <Carousel.Item>
           <CarouselImage

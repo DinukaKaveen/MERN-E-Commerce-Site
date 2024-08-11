@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import NavbarBuyer from '../buyer/Navbar';
 
 function Contact() {
   return (
-    <div>Contact</div>
+    <div>
+      < NavbarBuyer/>
+      Contact
+    </div>
   )
 }
 
